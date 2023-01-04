@@ -1,0 +1,74 @@
+:root{
+    --font-family:'Roboto', sans-serif;
+}
+
+body{
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: #28B463;
+}
+.content{
+    display: flex;
+    justify-content: space-around;
+}
+.titulo{
+    font-size: 35px;
+    color: #F0F3F4;
+}
+.start{
+    font-size: 18px;
+    width: 150px;
+    height: 38px;
+    font-family:var(--font-family);
+    margin-bottom: 30px;
+    border:1px black solid;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: #145A32;
+    color: white;
+}
+.start:hover{
+    cursor: pointer;
+    background-color: #ECF0F1;
+    color:#145A32;
+}
+.grid{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 600px;
+    height: 620px;
+    display: flex;
+    flex-wrap: wrap;  
+    border:2px black solid;
+    border-radius: 20px;
+    background-color: #82E0AA ;
+}
+.grid div {
+    width: 20px;
+    height: 20px;
+}
+.score, .live {
+    display: block;
+    padding-bottom: 10px;
+    font-size: 23px;
+    font-weight: bold;
+}
+.score{
+    color:  #ECF0F1;
+}
+.live{
+    color: #0B5345;
+}
+.snake {
+    border-radius: 10px;
+    background-color: #196F3D;
+}
+.apple{
+    border-radius: 10px;
+    background-color: #E40000;
+}
+.apple2{
+    border-radius: 10px;
+    background-color: #efb810;
+}
