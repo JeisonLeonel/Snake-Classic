@@ -72,3 +72,14 @@ body{
     border-radius: 10px;
     background-color: #efb810;
 }
+#select{
+    font-size: 18px;
+    font-weight: bold;
+    width: 180px;
+    height: 40px;
+    border-radius: 10px;
+    border: solid 1px black;
+    font-size: var(--font-family);
+    background-color: #145A32;
+    color: white;
+}

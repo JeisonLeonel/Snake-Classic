@@ -1,22 +1,66 @@
 document.addEventListener('DOMContentLoaded',() =>{
+    var grid = document.querySelector('.grid');
+
+    for(var i = 0; i < 900; i++) {
+        var newDiv = document.createElement('div');
+        grid.appendChild(newDiv);
+    }
 
     const div = document.querySelectorAll('.grid div');
-    const grid = document.querySelector('.grid');
     const score = document.querySelector('.puntuacion');
     const start = document.querySelector('.start');
     const live = document.querySelector('.vidas');
 
     const Width = 30;
-    let snakeIndex //currentIndex
+    let snakeIndex 
     let appleIndex 
-    let cuerpoSnake //currentSnake
+    let cuerpoSnake 
     let direction
-    let scores,lives,speed,intervalTime,interval,stopGame
+    let scores,lives,speed,intervalTime,interval,stopGame,speedUp = 0.0097
 
     lives = 3
     scores = 0
 
     const startGame = () => {
+
+        let selectId = document.getElementById('select')
+
+        if (selectId.value === 'facil' ){
+            speedUp = 0.0097
+        }
+        else if (selectId.value === 'normal' ){
+            speedUp = 0.027
+        }
+        else if (selectId.value === 'dificil'){
+            speedUp = 0.097
+        }
+
+
+        if(cuerpoSnake){
+            cuerpoSnake.forEach(index => div[index].classList.remove('snake'))
+            div.forEach(element => element.classList.remove('apple'))
+        }
+
+        clearInterval(interval)
+
+        direction = 1
+        intervalTime = 250
+        cuerpoSnake = [452,451,450]
+        snakeIndex = 0
+        speed = 0.97
+        appleIndex = 0
+        stopGame = false
+
+        randomApple(false)
+
+        score.innerText = scores
+        live.innerText = lives
+
+        cuerpoSnake.forEach(index => div[index].classList.add('snake'))
+        interval = setInterval(moveOut,intervalTime)
+
+    }
+    const continuoGame = () => {
 
         if(cuerpoSnake){
             cuerpoSnake.forEach(index => div[index].classList.remove('snake'))
@@ -51,33 +95,38 @@ document.addEventListener('DOMContentLoaded',() =>{
             (cuerpoSnake[0] - Width < 0 && direction === -Width)||
             div[cuerpoSnake[0] + direction].classList.contains('snake')
         ){
-            stopGame = true;
             live.innerText = --lives
             div.forEach(element => element.classList.remove('apple'))
         
             if (lives === 0){
+                stopGame = true
                 scores = 0
                 live.innerText = "Game Over"
                 lives = 3
                 return clearInterval(interval)
             }
             else{
-                return clearInterval(interval)
+                continuoGame();
+                return;
             }
         }
         const tail = cuerpoSnake.pop()
         div[tail].classList.remove('snake')
         cuerpoSnake.unshift(cuerpoSnake[0] + direction)
 
-        if (div[cuerpoSnake[0]].classList.contains('apple')) {
-            div[cuerpoSnake[0]].classList.remove('apple')
+        if (div[cuerpoSnake[0]].classList.contains('apple') || div[cuerpoSnake[0]].classList.contains('apple2')) {
+        
+            if (div[cuerpoSnake[0]].classList.contains('apple')){
+                div[cuerpoSnake[0]].classList.remove('apple')
+                score.textContent = ++scores
+            }
             if (div[cuerpoSnake[0]].classList.contains('apple2')) {
                 div[cuerpoSnake[0]].classList.remove('apple2')
-                score.textContent = ++scores
+                score.textContent = scores + 2
             }
             div[tail].classList.add('snake')
             cuerpoSnake.push(tail)
-            score.textContent = ++scores
+            speed = speed - speedUp
             intervalTime = intervalTime * speed
             randomApple(true)
             clearInterval(interval)
@@ -105,7 +154,7 @@ document.addEventListener('DOMContentLoaded',() =>{
 
                 setTimeout(()=>{
                     div[appleIndex].classList.remove('apple2')
-                }, 2000);
+                }, 6000);
             }
         
         else {
@@ -142,7 +191,6 @@ document.addEventListener('DOMContentLoaded',() =>{
         }
         else{
             interval = setInterval(moveOut,intervalTime)
-            grid.style = (stopGame ? "background-color:rgb(3,22,9)" : "background-color:wheat")
         }
         stopGame = !stopGame
     })
