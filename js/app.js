@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded',() =>{
         let selectId = document.getElementById('select')
 
         if (selectId.value === 'facil' ){
-            speedUp = 0.0097
+            speedUp = 0.00097
         }
         else if (selectId.value === 'normal' ){
-            speedUp = 0.027
+            speedUp = 0.0027
         }
         else if (selectId.value === 'dificil'){
-            speedUp = 0.097
+            speedUp = 0.0097
         }
 
 
