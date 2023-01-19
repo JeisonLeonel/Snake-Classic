@@ -83,3 +83,10 @@ body{
     background-color: #145A32;
     color: white;
 }
+.vidas img {
+    width: 34px;
+    height: 34px;
+    position: relative;
+    top: 10px;
+    margin-right: 3px ;
+}

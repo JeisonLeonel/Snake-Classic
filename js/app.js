@@ -9,7 +9,20 @@ document.addEventListener('DOMContentLoaded',() =>{
     const div = document.querySelectorAll('.grid div');
     const score = document.querySelector('.puntuacion');
     const start = document.querySelector('.start');
-    const live = document.querySelector('.vidas');
+
+
+    function img(item){
+        var img = document.getElementById('img_vidas');
+        img.innerHTML = '';
+        if(item == 0){
+            img.innerHTML = 'Gamer Over'
+        }
+        for(let i=0; i < item;i++){
+            let new_img = new Image(34,34)
+            new_img.src = "https://cdn-icons-png.flaticon.com/512/833/833472.png";
+            img.appendChild(new_img);
+        }
+    }
 
     const Width = 30;
     let snakeIndex 
@@ -18,7 +31,8 @@ document.addEventListener('DOMContentLoaded',() =>{
     let direction
     let scores,lives,speed,intervalTime,interval,stopGame,speedUp = 0.0097
 
-    lives = 3
+    lives = 5 
+    img(lives)
     scores = 0
 
     const startGame = () => {
@@ -54,10 +68,11 @@ document.addEventListener('DOMContentLoaded',() =>{
         randomApple(false)
 
         score.innerText = scores
-        live.innerText = lives
 
         cuerpoSnake.forEach(index => div[index].classList.add('snake'))
         interval = setInterval(moveOut,intervalTime)
+
+        img(lives)
 
     }
     const continuoGame = () => {
@@ -80,10 +95,12 @@ document.addEventListener('DOMContentLoaded',() =>{
         randomApple(false)
 
         score.innerText = scores
-        live.innerText = lives
+    
 
         cuerpoSnake.forEach(index => div[index].classList.add('snake'))
         interval = setInterval(moveOut,intervalTime)
+
+        img(lives)
 
     }
 
@@ -95,14 +112,14 @@ document.addEventListener('DOMContentLoaded',() =>{
             (cuerpoSnake[0] - Width < 0 && direction === -Width)||
             div[cuerpoSnake[0] + direction].classList.contains('snake')
         ){
-            live.innerText = --lives
+            lives = --lives
             div.forEach(element => element.classList.remove('apple'))
         
             if (lives === 0){
                 stopGame = true
                 scores = 0
-                live.innerText = "Game Over"
-                lives = 3
+                img(lives)
+                lives = 5
                 return clearInterval(interval)
             }
             else{
@@ -122,7 +139,7 @@ document.addEventListener('DOMContentLoaded',() =>{
             }
             if (div[cuerpoSnake[0]].classList.contains('apple2')) {
                 div[cuerpoSnake[0]].classList.remove('apple2')
-                score.textContent = scores + 2
+                score.textContent = scores + 2 
             }
             div[tail].classList.add('snake')
             cuerpoSnake.push(tail)
